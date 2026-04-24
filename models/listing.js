@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 const Review=require("./review.js");
+const { CATEGORIES, VIBES, AMENITIES, TAGS } = require('../utils/constants');
 
 const listingSchema=new Schema({
     title: {
@@ -12,8 +13,8 @@ const listingSchema=new Schema({
         url: String,
         filename: String,
     },
-    price: Number,
-    location: String,
+    price: { type: Number, required: true, min: 0 },
+    location: { type: String, required: true },
     country: String,
     reviews: [
         {
@@ -38,9 +39,33 @@ const listingSchema=new Schema({
     },
     category: {
         type: String,
-        enum: ["rooms", "camping","iconic cities", "mountain", "waterpark", "beach", "farmhouse", "arctic"],
+        enum: CATEGORIES,
+        required: true
+    },
+    vibe: { 
+        type: String, 
+        enum: VIBES,  
+    },
+    tags: [{ 
+        type: String, 
+        enum: TAGS 
+    }],
+    amenities: [{ 
+        type: String, 
+        enum: AMENITIES 
+    }],
+    maxGuests: { 
+        type: Number, 
+        required: true, 
+        min: 1 
+    },
+    rating: { 
+        type: Number, 
+        default: 4.5, 
+        min: 0, 
+        max: 5 
     }
-});
+}, { timestamps: true })
 
 listingSchema.post("findOneAndDelete", async(listing)=>{
     if(listing){

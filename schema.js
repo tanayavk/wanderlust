@@ -1,4 +1,5 @@
 const Joi=require("joi");
+const { CATEGORIES, VIBES, AMENITIES, TAGS } = require("./utils/constants");
 
 module.exports.listingSchema=Joi.object({
     listing : Joi.object({
@@ -8,6 +9,11 @@ module.exports.listingSchema=Joi.object({
         country: Joi.string().required(),
         price: Joi.number().required().min(0),
         image: Joi.string().allow("", null),
+        category: Joi.string().valid(...CATEGORIES).required(),
+        vibe: Joi.string().valid(...VIBES),
+        tags: Joi.array().items(Joi.string().valid(...TAGS)),
+        amenities: Joi.array().items(Joi.string().valid(...AMENITIES)),
+        maxGuests: Joi.number().min(1).required(),
     }).required()
 });
 
