@@ -46,10 +46,14 @@ module.exports.createListing = async (req, res, next) => {
     // console.log(url, "  ", filename);
 
     const listingData = req.body.listing;
+    const newListing=new Listing(listingData);
+
+    newListing.city = listingData.city;
+    newListing.state = listingData.state;
+    newListing.country = listingData.country;
     
     listingData.amenities = ensureArray(listingData.amenities);
     listingData.tags = ensureArray(listingData.tags);
-    const newListing=new Listing(listingData);
     // console.log(req.user);
     let url=req.file.secure_url;
     let filename=req.file.public_id;
@@ -90,7 +94,10 @@ module.exports.updateListing = async (req, res) => {
         req.flash("error", "Listing not found");
         return res.redirect("/listings");
     }
-
+    listing.city = listingData.city;
+    listing.state = listingData.state;
+    listing.country = listingData.country;
+    
     const oldLocation = listing.location;
     const updateData = req.body.listing;
 

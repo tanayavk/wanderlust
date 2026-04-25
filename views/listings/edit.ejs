@@ -26,6 +26,34 @@
         </div>
 
         <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" class="form-select" required>
+            <option value="Villa" <%= listing.category == 'Villa' ? 'selected' : '' %>>Villa</option>
+            <option value="Apartment" <%= listing.category == 'Apartment' ? 'selected' : '' %>>Apartment</option>
+            <option value="Cabin" <%= listing.category == 'Cabin' ? 'selected' : '' %>>Cabin</option>
+        </select>
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label">Amenities</label>
+        <div class="d-flex flex-wrap gap-3">
+            <% const availableAmenities = ['Wifi', 'Pool', 'Parking', 'AC'] %>
+            <% for(let amenity of availableAmenities) { %>
+            <div class="form-check">
+                <input 
+                class="form-check-input" 
+                type="checkbox" 
+                name="listing[amenities]" 
+                value="<%= amenity %>" 
+                <%= listing.amenities.includes(amenity) ? 'checked' : '' %>
+                >
+                <label class="form-check-label"><%= amenity %></label>
+            </div>
+            <% } %>
+        </div>
+        </div>
+
+        <div class="mb-3">
             Original Listing Image <br>
             <img class="mt-2"src="<%= originalImageUrl %>">
         </div>
@@ -45,6 +73,14 @@
             class="form-control"
             required>
             <div class="invalid-feedback">Please enter a valid price</div>        
+        </div>
+        <div class="mb-3 col-md-8">
+        <label for="city" class="form-label">City</label>
+        <input name="listing[city]" placeholder="Enter city" type="text" class="form-control" required />
+        </div>
+        <div class="mb-3 col-md-8">
+            <label for="state" class="form-label">State</label>
+            <input name="listing[state]" placeholder="Enter state" type="text" class="form-control" required />
         </div>
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>

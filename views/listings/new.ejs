@@ -27,6 +27,51 @@
             required>
         </div>
         <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" class="form-select" required>
+            <option value="">Select Category</option>
+            <option value="Villa">Villa</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Cabin">Cabin</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Cottage">Cottage</option>
+        </select>
+        </div>
+
+        <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="vibe" class="form-label">Vibe</label>
+            <select name="listing[vibe]" class="form-select">
+            <option value="Peaceful">Peaceful</option>
+            <option value="Romantic">Romantic</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Family">Family</option>
+            </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+            <label for="maxGuests" class="form-label">Max Guests</label>
+            <input type="number" name="listing[maxGuests]" class="form-control" min="1" required>
+        </div>
+     </div>
+        <div class="mb-3">
+        <label class="form-label">Amenities</label>
+        <div class="d-flex flex-wrap gap-3">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="listing[amenities]" value="Wifi" id="wifi">
+        <label class="form-check-label" for="wifi">Wifi</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="listing[amenities]" value="Pool" id="pool">
+        <label class="form-check-label" for="pool">Pool</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="listing[amenities]" value="Parking" id="parking">
+        <label class="form-check-label" for="parking">Parking</label>
+        </div>
+        </div>
+    </div>
+        <div class="mb-3">
             <label for="image" class="form-label">Upload Image</label>
             <input name="listing[image]" 
             type="file" 
@@ -42,6 +87,14 @@
             class="form-control" 
             required>
             <div class="invalid-feedback">Please enter a valid price</div>
+        </div>
+        <div class="mb-3 col-md-8">
+        <label for="city" class="form-label">City</label>
+        <input name="listing[city]" placeholder="Enter city" type="text" class="form-control" required />
+        </div>
+        <div class="mb-3 col-md-8">
+            <label for="state" class="form-label">State</label>
+            <input name="listing[state]" placeholder="Enter state" type="text" class="form-control" required />
         </div>
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>

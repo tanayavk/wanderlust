@@ -14,8 +14,20 @@ const listingSchema=new Schema({
         filename: String,
     },
     price: { type: Number, required: true, min: 0 },
-    location: { type: String, required: true },
-    country: String,
+    location: String, // Full address (e.g., "123 Beach Ave, Miami, FL")
+    city: {
+        type: String,
+        trim: true
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    country: {
+        type: String,
+        required: true,
+        trim: true
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
