@@ -3,13 +3,30 @@
 <style>
     #filters {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
+        overflow-x: auto; /* Enable horizontal scroll */
+        white-space: nowrap;
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+        position: sticky;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    #filters::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for beauty */
+    }
+
+    .filter-divider {
+        border-left: 1px solid #ddd;
+        height: 2.5rem;
+        margin: 1.5rem 1rem 0 1rem;
     }
 
     .filter {
         text-align: center;
-        margin-right: 2rem;
+        min-width: 5rem; /* Ensures icons don't squash */
+        margin-right: 1rem !important;
         margin-top: 2rem;
         opacity: 0.7;
     }
@@ -21,6 +38,7 @@
 
     .filter p {
         font-size: 0.8rem;
+        margin-bottom: 0;
     }
 
     .tax-info {
@@ -35,52 +53,114 @@
         margin-left: 8rem;
         display: flex;
         align-items: center;
+        position: sticky;
+    }
+
+    .filter-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .filter-options {
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        flex-grow: 1;       /* Takes up all available space */
+        white-space: nowrap;
+        flex-wrap: nowrap;
+    }
+
+    .filter-options::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 20px;
+        padding-left: 10px;
+        right: 0; /* Pins it to the right */
+        margin-bottom: 16px;
+        box-shadow: -10px 0 15px -5px rgba(255, 255, 255, 1); /* Optional: fade effect for icons */
+    }
+
+    .clear-btn {
+        text-decoration: none;
+        color: black;
+        border: 1px solid #b2b2b2;
+        border-radius: 30px;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        height: fit-content; /* Ensures it stays vertically centered */
+        display: flex;
+        align-items: center;
     }
 </style>
-    <div id="filters">
+<div id="filters">
+    <div class="filter-options">
+        <% for(let cat of ["Villa", "Apartment", "Cabin", "Hostel", "Hotel", "Cottage"]) { %>
+            <div class="filter" onclick="filterBy('category', '<%= cat %>')">
+                <div><i class="fa-solid <%= 
+                    cat === 'Villa' ? 'fa-house-chimney' : 
+                    cat === 'Apartment' ? 'fa-building' : 
+                    cat === 'Cabin' ? 'fa-house-chimney-window' : 
+                    cat === 'Hostel' ? 'fa-bed' : 
+                    cat === 'Hotel' ? 'fa-hotel' : 'fa-house-flood-water' 
+                %>"></i></div>
+                <p><%= cat %></p>
+            </div>
+        <% } %>
+
+        <div class="filter-divider"></div>
+
+        <% for(let tag of ["Mountain", "Beach", "City", "Forest", "Lake", "Rural"]) { %>
+            <div class="filter" onclick="filterBy('tag', '<%= tag %>')">
+                <div><i class="fa-solid <%= 
+                    tag === 'Mountain' ? 'fa-mountain' : 
+                    tag === 'Beach' ? 'fa-umbrella-beach' : 
+                    tag === 'City' ? 'fa-city' : 
+                    tag === 'Forest' ? 'fa-tree' : 
+                    tag === 'Lake' ? 'fa-water' : 'fa-cow' 
+                %>"></i></div>
+                <p><%= tag %></p>
+            </div>
+        <% } %>
+
+        <div class="filter-divider"></div>
+
+        <% for(let am of ["Wifi", "Parking", "Pool", "Kitchen", "AC", "TV", "Gym"]) { %>
+            <div class="filter" onclick="filterBy('amenity', '<%= am %>')">
+                <div><i class="fa-solid <%= 
+                    am === 'Wifi' ? 'fa-wifi' : 
+                    am === 'Parking' ? 'fa-square-parking' : 
+                    am === 'Pool' ? 'fa-person-swimming' : 
+                    am === 'Kitchen' ? 'fa-kitchen-set' : 
+                    am === 'AC' ? 'fa-wind' : 
+                    am === 'TV' ? 'fa-tv' : 'fa-dumbbell' 
+                %>"></i></div>
+                <p><%= am %></p>
+            </div>
+        <% } %>
+
+        <div class="filter-divider"></div>
+
+        <% for(let v of ["Peaceful", "Romantic", "Adventure", "Family", "Luxury"]) { %>
+            <div class="filter" onclick="filterBy('vibe', '<%= v %>')">
+                <div><i class="fa-solid <%= 
+                    v === 'Peaceful' ? 'fa-wind' : 
+                    v === 'Romantic' ? 'fa-heart' : 
+                    v === 'Adventure' ? 'fa-person-hiking' : 
+                    v === 'Family' ? 'fa-people-group' : 'fa-gem' 
+                %>"></i></div>
+                <p><%= v %></p>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="filter-actions">
         <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Resort</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountain</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Waterpark</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-umbrella-beach"></i></div>
-            <p>Beach</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-cow"></i></div>
-            <p>Farmhouse</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-snowflake"></i></div>
-            <p>Igloo</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-sailboat"></i></div>
-            <p>Boathouse</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Palace</p>
+            <a href="/listings" class="btn btn-sm btn-outline-dark clear-btn" style="border-radius: 1rem; white-space: nowrap;">Clear All</a>
         </div>
 
         <div class="tax-toggle">
@@ -89,7 +169,10 @@
                 <label class="form-check-label" for="flexSwitchCheckDefault">Display taxes</label>
             </div>
         </div>
+
     </div>
+</div>
+
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
@@ -120,4 +203,21 @@
             }
         }  
     }); 
+
+    function filterBy(key, value) {
+        // 1. Get current URL and parameters
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+
+        // 2. Logic: If the filter is already active, remove it (toggle). 
+        // Otherwise, set it.
+        if (params.get(key) === value) {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+
+        // 3. Update the URL and reload the page with combined filters
+        window.location.search = params.toString();
+    }
 </script>

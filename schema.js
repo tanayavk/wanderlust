@@ -13,8 +13,8 @@ module.exports.listingSchema=Joi.object({
         image: Joi.string().allow("", null),
         category: Joi.string().valid(...CATEGORIES).required(),
         vibe: Joi.string().valid(...VIBES),
-        tags: Joi.array().items(Joi.string().valid(...TAGS)),
-        amenities: Joi.array().items(Joi.string().valid(...AMENITIES)),
+        tags: Joi.array().items(Joi.string().valid(...TAGS)).single(),
+        amenities: Joi.array().items(Joi.string().valid(...AMENITIES)).single(),
         maxGuests: Joi.number().min(1).required(),
     }).required()
 });

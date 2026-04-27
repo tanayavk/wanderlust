@@ -20,6 +20,9 @@ router
 //New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
+//Filtering search
+router.get("/filter", wrapAsync(listingController.filter));
+
 router
 .route("/:id")
 .get(wrapAsync(listingController.showListing)) //show route

@@ -72,8 +72,14 @@
             type="number" 
             class="form-control"
             required>
-            <div class="invalid-feedback">Please enter a valid price</div>        
+            <div class="invalid-feedback">Please enter a valid price</div>  
         </div>
+        <div class="mb-3 col-md-5">
+            <label for="maxGuests" class="form-label">Maximum Guests</label>
+            <input name="listing[maxGuests]" value="<%= listing.maxGuests %>" type="number" class="form-control" min="1" required>
+        </div>
+        </div>
+        
         <div class="mb-3 col-md-8">
         <label for="city" class="form-label">City</label>
         <input name="listing[city]" placeholder="Enter city" type="text" class="form-control" required />

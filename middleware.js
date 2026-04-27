@@ -31,6 +31,14 @@ module.exports.isOwner=async (req, res, next)=>{
 };
 
 module.exports.validateListing=(req,res,next)=>{
+    if (req.body.listing) {
+        if (req.body.listing.amenities && !Array.isArray(req.body.listing.amenities)) {
+            req.body.listing.amenities = [req.body.listing.amenities];
+        }
+        if (req.body.listing.tags && !Array.isArray(req.body.listing.tags)) {
+            req.body.listing.tags = [req.body.listing.tags];
+        }
+    }
     let {error}=listingSchema.validate(req.body);
     if(error) {
         let errMsg=error.details.map((el)=>el.message).join(",");
